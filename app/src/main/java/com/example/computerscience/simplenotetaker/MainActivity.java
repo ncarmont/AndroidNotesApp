@@ -61,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String fileName = ((Note)mListViewNotes.getItemAtPosition(position)).getmDateTime()
                             + Utilities.FILE_EXTENSION;
+
+                    Intent viewNoteIntent = new Intent(getApplicationContext(), NoteActivity.class);
+                    viewNoteIntent.putExtra("NOTE_FILE",fileName);
+                    startActivity(viewNoteIntent);
                 }
             });
         }

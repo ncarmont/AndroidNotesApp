@@ -72,5 +72,40 @@ public class Utilities {
 
     public static Note getNoteByName(Context context, String fileName){
        // go to minute 36:16 on tutorial video
+        File file  = new File(context.getFilesDir(), fileName);
+        Note note;
+
+        if(file.exists()){
+            FileInputStream fis;
+            ObjectInputStream ois;
+
+            try{
+                fis = context.openFileInput(fileName);
+                ois = new ObjectInputStream(fis);
+
+                note =  (Note) ois.readObject();
+
+                fis.close();
+                ois.close();
+
+
+            } catch(IOException | ClassNotFoundException e){
+                e.printStackTrace();
+                return null;
+            }
+
+            return note;
+        }
+
+        return null;
+    }
+
+    public static void deleteNote(Context context, String fileName){
+        File dir = context.getFilesDir();
+        File file = new File(dir, fileName);
+
+        if(file.exists()){
+            file.delete();
+        }
     }
 }
